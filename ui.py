@@ -30,38 +30,6 @@ def ui_predict_img(model):
 	prediction = single_prediction(model, img)
 	
 	print_prediction(img, prediction, class_names)
-	
-def ui_multiple_predictions(model):
-	continue_loop = True
-	while continue_loop:
-		print("enter an image path:")
-		img_paths = []
-		img_paths.append(get_file_path())
-		
-		print("do u wish to make make more predictions?")
-		if not get_bool():
-			for img_path in img_paths:
-				img = load_photo(img_path, img_width, img_height)
-				prediction = single_prediction(model, img)
-				print_prediction(img, prediction, class_names)
-			continue_loop = False
-
-""" use the model to predict 
-
-"""
-def ui_predict_file(model):
-	print("enter a path")
-
-	imgs_file = get_file_path()
-	
-	with open(imgs_file) as f:
-		imgs_paths = f.readlines()
-	imgs_paths = [x.strip() for x in imgs_paths] # to remove \n in the end of the line
-
-	for img_path in imgs_paths:
-		img = load_photo(img_path, img_width, img_height)
-		prediction = single_prediction(model, img)
-		print_prediction(img, prediction, class_names)
 
 def ui_test_precision(model):
 	
@@ -121,5 +89,5 @@ def ui_clean_env(model):
 	if debug_data: print("finished cleaning")
 	
 
-actions_strings = ["train the model", "load model", "make a prediction about an image", "make multiple predictions", "predict file- each line in the file is an path to an image to predict", "test precision- check the precision of the model on all data", "set up enviornment - unzip and sort all the training images", "clear enviornment - cleans all files this program generates", "exit"]
-action_functions = [ui_train_model, ui_load_model, ui_predict_img, ui_multiple_predictions, ui_predict_file, ui_test_precision, ui_setup_env, ui_clean_env]
+actions_strings = ["train the model", "load model", "make a prediction about an image", "test precision- check the precision of the model on all data", "set up enviornment - unzip and sort all the training images", "clear enviornment - cleans all files this program generates", "exit"]
+action_functions = [ui_train_model, ui_load_model, ui_predict_img, ui_test_precision, ui_setup_env, ui_clean_env]
