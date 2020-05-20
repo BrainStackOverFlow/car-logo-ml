@@ -4,14 +4,16 @@ import os
 from os import system
 from os.path import isfile
 from subprocess import call
-from Utils import get_bool
-from Utils import get_file_path
-from Utils import get_dir_path
-from Utils import save_path_vars
-	
+from utils import get_bool
+from utils import get_file_path
+from utils import get_dir_path
+from utils import save_path_vars
+from globalvars import path_vars_file_name	
+
 packages_to_install = ["keras", "tensorflow-gpu", "pillow"]
 
 def install_packages():
+	call("pip3 install --upgrade pip3", shell=True)
 	call("pip3 install --upgrade " + ' '.join(packages_to_install), shell=True)
 
 def update_packages():
@@ -32,7 +34,7 @@ def main():
 	
 	print("started script...")
 	
-	save_path_vars()
+	save_path_vars(path_vars_file_name)
 	
 	update_packages()
 	install_packages()
