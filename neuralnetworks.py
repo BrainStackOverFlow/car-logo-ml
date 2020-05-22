@@ -29,9 +29,10 @@ import matplotlib.pyplot as plt
 training_divide = 32
 training_rounds = 5
 
-""" print statics of the 
+""" print statics of the training
 
-Arguments
+Arguments:
+	histroy: trainging history object from the model training
 
 Returns: 
 	nothing
@@ -42,6 +43,16 @@ def print_fit_statistics(history):
 		plt.legend()
 		plt.show()
 
+
+""" create a model instance
+
+Args:
+	none
+	
+Returns:
+	the model
+
+"""
 def define_model():
 	model = Sequential()
 	model.add(Conv2D(32, kernel_size=(3, 3),activation='relu',input_shape=(img_width,img_height,img_colors)))
@@ -58,6 +69,17 @@ def define_model():
 	
 	return model
 
+""" trains the model
+
+Args:
+	model: model object
+	train_dir: the directory of the sorted train images
+	test_dir: the directory of the sorted test images
+	
+Returns:
+	nothing
+
+"""
 def train_model(model, train_dir: str, test_dir: str):
 	datagen = ImageDataGenerator(rescale=1.0/255.0)
 	
@@ -67,7 +89,16 @@ def train_model(model, train_dir: str, test_dir: str):
 	history = model.fit_generator(train_generator, steps_per_epoch=len(train_generator), validation_data=test_generator, validation_steps=len(test_generator), epochs=training_divide*training_rounds, verbose=2)
 
 	print_fit_statistics(history)
-	
+
+""" does a single prediction about an image
+
+Args:
+	model: the model object
+	img: an image
+
+Returns: the predicrion
+
+"""
 def single_prediction(model, img):
 	predictions = model.predict(numpy.array([numpy.array(img)]))
 	return predictions[0]

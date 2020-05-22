@@ -13,7 +13,8 @@ final_cars = list_substraction(folders, ignored_cars)
 
 class_names = final_cars
 
-# create folders for 
+# create folders for the dataset
+# this is needed so the train_geerator will be able to read correctly the images and to know their types
 def make_folders(data_set_path):
 	try:
 		mkdir(data_set_path)
@@ -54,6 +55,7 @@ def make_folders(data_set_path):
 			pass
 
 # copy all files to thier designated folders
+# this is needed so the train_geerator will be able to read correctly the images and to know their types
 def copy_files(data_set_path: str, images_path: str):
 	
 	counter = {}
@@ -71,6 +73,7 @@ def copy_files(data_set_path: str, images_path: str):
 				else:
 					copy(path.join(images_path, fil), path.join(data_set_path, "train", fold, fil))
 				break
+
 
 def sort_all_dirs(data_set_path: str, images_path: str):
 	make_folders(data_set_path)

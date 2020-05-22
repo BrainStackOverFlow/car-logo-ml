@@ -9,6 +9,17 @@ import os
 import matplotlib.pyplot as plt
 from keras.preprocessing.image import ImageDataGenerator
 
+# this files contains all teh ui options
+
+""" trains the model and saves it
+
+Args:
+	model: the model object
+
+Returns:
+	nothing
+
+"""
 def ui_train_model(model):
 	train_model(model, train_dir, test_dir)	
 		
@@ -18,10 +29,28 @@ def ui_train_model(model):
 	
 	model.save(model_weights_file_name)	
 
+""" load the weights to the model from a file
+
+Args:
+	model: the model
+
+Returns:
+	nothing
+
+"""
 def ui_load_model(model):
 	model.load_weights(model_weights_file_name)
 	if debug_data: print("model loaded")
 
+""" makes a prediction about one image
+
+Args:
+	the model object
+
+Returns:
+	nothing
+
+"""
 def ui_predict_img(model):
 	print("enter an image path:")
 	img_path = get_file_path()
@@ -31,6 +60,16 @@ def ui_predict_img(model):
 	
 	print_prediction(img, prediction, class_names)
 
+
+""" test the precision of the model when checking the training, test, training+test images group
+
+Args:
+	the model object
+
+Returns:
+	nothing
+
+"""
 def ui_test_precision(model):
 	
 	datagen = ImageDataGenerator(rescale=1.0/255.0)
@@ -54,6 +93,16 @@ def ui_test_precision(model):
 	print("test images evaluation: loss=" + str(test_eval[0]) +", accuracy=" + str(test_eval[1]))
 	print("all images evaluation: loss=" + str(all_eval[0]) +", accuracy=" + str(all_eval[1]))
 
+
+""" unzip the images and sort them to the correct folders
+
+Args:
+	the model object
+
+Returns:
+	nothing
+
+"""
 def ui_setup_env(model):
 	try:
 		os.mkdir(images_dir_path)
@@ -72,6 +121,15 @@ def ui_setup_env(model):
 		
 	if debug_data: print("finished organzing the data set")
 
+""" cleans all the files the program has created
+
+Args:
+	the model object
+
+Returns:
+	nothing
+
+"""
 def ui_clean_env(model):
 
 	if debug_data: print("started cleaning the files the program generated")
@@ -88,6 +146,6 @@ def ui_clean_env(model):
 
 	if debug_data: print("finished cleaning")
 	
-
+# descrption of the functions + the functions into an easily accessible list
 actions_strings = ["train the model", "load model", "make a prediction about an image", "test precision- check the precision of the model on all data", "set up enviornment - unzip and sort all the training images", "clear enviornment - cleans all files this program generates", "exit"]
 action_functions = [ui_train_model, ui_load_model, ui_predict_img, ui_test_precision, ui_setup_env, ui_clean_env]

@@ -101,7 +101,7 @@ def get_bool() -> bool:
 
 """ input a file path
 
-Args:
+Args: none
 
 Returns:
     str
@@ -121,7 +121,7 @@ def get_file_path() -> str:
 
 """ input a directory path
 
-Args:
+Args: none
 
 Returns:
     str
@@ -164,7 +164,16 @@ def extract_zip(zip_file_path: str, extract_dir: str) -> bool:
 	zf.close()
 	
 	return True
-	
+
+
+""" build a path from mulitple strings
+
+Args:
+    zip_file_path (list) a list which contains all the 
+
+Returns:
+    string: the final string
+"""
 def build_path(path_components : list) -> str:
 	if not isinstance(path_components, list):
 		raise TypeError
@@ -187,7 +196,15 @@ def get_cudnn64_7_dir_path():
 		if isfile(os.path.join(path, "cudnn64_7.dll")): return path
 		print("this directory doesnt contain any cudnn64_7.dll path")
 
-def save_path_vars(path_vars_file_name):
+""" sets up the cudnn64_7 file settings up
+
+Args:
+	path_vars_file_name: the path to the settings file
+	
+Returns:
+	nothing
+"""
+def save_path_vars(path_vars_file_name : str):
 	print("write if cudnn64_7 exsits in your computer")
 	cudnn64_7_exists = get_bool()
 	
@@ -199,7 +216,17 @@ def save_path_vars(path_vars_file_name):
 		path_vars_file.write(cudnn64_7_path)
 		path_vars_file.close()
 
-def setup_path_vars(path_vars_file_name):
+
+""" adds the cudnn64_7 to the system file path so this program could use the gpu
+
+Args:
+	path_vars_file_name (string): the path to the settings file
+	
+Returns:
+	nothing
+
+"""
+def setup_path_vars(path_vars_file_name : str):
 	if isfile(path_vars_file_name):
 		path_vars_file = open(path_vars_file_name, "r")
 		var_path = path_vars_file.read()
@@ -214,7 +241,15 @@ Return: how many files in the directory
 def count_files_in_dir(dir_path):
 	return len(listdir(dir_path))
 
-def count_imgs_in_dataset(dataset_dir):
+""" counts how many images there are in the dataset
+
+Args: 
+	dataset_dir: the path to the dataset directory
+	
+Return:
+	how many images there are in the dataset
+"""
+def count_imgs_in_dataset(dataset_dir : str):
 	count = 0
 	for dir in listdir(dataset_dir):
 		count += count_files_in_dir(build_path([dataset_dir ,dir]))
@@ -247,9 +282,12 @@ def load_photo(img_path: str, img_width: int, img_height: int):
 	image = image.convert("RGB")
 	return image
 
-""" print a prediciton from the model very nicely. u need to do plt.show() after calling the function
+""" print a prediciton from the model very nicely.
 Args:
-	a prediction
+	img: the image to predict
+	prediciton: a prediction from the single_prediction() function
+	class_names: list thats hold the name of all the type of car logos
+	
 Returns:
 	nothing
 """

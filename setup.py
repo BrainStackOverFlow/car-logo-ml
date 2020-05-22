@@ -10,12 +10,25 @@ from utils import get_dir_path
 from utils import save_path_vars
 from globalvars import path_vars_file_name	
 
-packages_to_install = ["keras", "tensorflow-gpu", "pillow"]
+# the packages the program needs to install
+packages_to_install = ["keras", "tensorflow", "tensorflow-gpu", "pillow", "numpy", "pip", "matplotlib"]
 
+""" installs the python packages needed to run main.py and updates pip
+Args: 
+	none
+Returns:
+	nothing
+"""
 def install_packages():
 	call("pip3 install --upgrade pip3", shell=True)
 	call("pip3 install --upgrade " + ' '.join(packages_to_install), shell=True)
 
+""" updates all of pip pacakges
+Args: 
+	none
+Returns:
+	nothing
+"""
 def update_packages():
 	packages = eval(str(subprocess.run("pip3 list -o --format=json", shell=True, stdout=subprocess.PIPE).stdout, encoding='utf-8'))
 	for pkg in packages:
@@ -36,7 +49,6 @@ def main():
 	
 	save_path_vars(path_vars_file_name)
 	
-	update_packages()
 	install_packages()
 	
 	print("finished script")
