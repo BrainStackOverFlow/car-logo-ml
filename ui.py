@@ -147,5 +147,5 @@ def ui_clean_env(model):
 	if debug_data: print("finished cleaning")
 	
 # descrption of the functions + the functions into an easily accessible list
-actions_strings = ["train the model", "load model", "make a prediction about an image", "test precision- check the precision of the model on all data", "set up enviornment - unzip and sort all the training images", "clear enviornment - cleans all files this program generates", "exit"]
+actions_strings = ["train the model", "load model", "make a prediction about an image", "test precision- check the precision of the model on all data", "set up enviornment - unzip and sort all the training images", "clear enviornment - delete all files this program generates", "exit"]
 action_functions = [ui_train_model, ui_load_model, ui_predict_img, ui_test_precision, ui_setup_env, ui_clean_env]

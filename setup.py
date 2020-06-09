@@ -20,8 +20,13 @@ Returns:
 	nothing
 """
 def install_packages():
-	call("pip3 install --upgrade pip3", shell=True)
-	call("pip3 install --upgrade " + ' '.join(packages_to_install), shell=True)
+	
+	print("write if you need to update or install all of the needed packages")
+	should_install_packages = get_bool()
+	
+	if should_install_packages:
+		call("pip install --upgrade pip", shell=True)
+		call("pip install --upgrade " + ' '.join(packages_to_install), shell=True)
 
 """ updates all of pip pacakges
 Args: 
@@ -30,9 +35,9 @@ Returns:
 	nothing
 """
 def update_packages():
-	packages = eval(str(subprocess.run("pip3 list -o --format=json", shell=True, stdout=subprocess.PIPE).stdout, encoding='utf-8'))
+	packages = eval(str(subprocess.run("pip list -o --format=json", shell=True, stdout=subprocess.PIPE).stdout, encoding='utf-8'))
 	for pkg in packages:
-		subprocess.run("pip3 install --upgrade " + pkg['name'], shell=True)
+		subprocess.run("pip install --upgrade " + pkg['name'], shell=True)
 
 def main():
 	print("setup script for machine learning project\n")
